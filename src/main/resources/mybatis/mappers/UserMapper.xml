@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.taotao.sso.mapper.UserMapper">
+
+	<select id="queryUser" resultType="User">
+		SELECT * FROM tb_user WHERE ${field} = #{param}
+	</select>
+	
+	<!-- 
+		回填自增id：
+		useGeneratedKeys:开启回填
+		keyProperty：对象中的属性
+		keyColumn：字段
+	 -->
+	<insert id="saveUser" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		INSERT INTO tb_user (
+			id,
+			username,
+			password,
+			phone,
+			email,
+			created,
+			updated
+		)
+		VALUES
+			(
+				NULL,
+				#{username},
+				#{password},
+				#{phone},
+				#{email},
+				NOW(),
+				NOW()
+			);
+	</insert>
+	
+</mapper>
